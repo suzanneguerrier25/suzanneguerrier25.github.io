@@ -1,0 +1,229 @@
+<html>
+
+<head>
+  <title>Thermometer Lab</title>
+</head>
+
+<body>
+  <h1>Thermometer Lab</h1>
+  <div>
+    <svg version="1.1" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" height="50%" width="75%">
+      <style>
+        #glass {
+          fill: #ffffff;
+          stroke: #000000;
+          stroke-width: 5;
+        }
+
+        #container {
+          fill: #ffffff;
+          stroke: #000000;
+          stroke-width: 5;
+        }
+        .liquidstuff {
+          fill: colorz
+
+        }
+        #shiny{
+          stroke-width:3;
+        }
+
+        .slider{
+          width:50%;
+        }
+        #slider{
+          width:50%;
+          height:25px;
+          outline:none;
+
+        }
+        .farenheightext{
+          font-size:13;
+         
+        }
+        .celsiustext{
+          font-size:13;
+          
+        }
+      </style>
+
+      <!-- made an effort to comment my code because it most likely makes it easier on myself-->
+      <!-- Glass and Container -->
+      <rect id="container" x="10" y="10" width="120" height="210" rx="15" />
+
+      <g id="glass">
+        <rect x="45" y="20" width="30" height="160" rx="15" />
+        <ellipse cx="60" cy="180" rx="30" ry="30" />
+        <rect x="46.5" y="22" width="27" height="165" rx="15" stroke="none" />
+      </g>
+
+    
+
+
+      <!-- Fluid ? / Bulb and Column -->
+      <g class = "liquidstuff">
+        <ellipse cx="60" cy ="180" rx="22" ry="22" fill = "#2BA4C1" stroke = "none" id = "bulb"/>
+        <rect x="50" y = "180" width = "20" height = "1" fill = #2BA4C1 stroke=""none id = "column"/>
+        <ellipse cx ="60" cy="170" rx="10" ry="10" fill = "#2BA4C1" stroke = "none" id = "cap"/>
+
+
+      
+      </g>
+
+
+      <!-- The shiny parts on the bulb-->
+      <g id = "shiny">
+        <path d=" M 49 191 A 9 11 0 0 1 49 171"  fill = "none" stroke = "#ffffff"/>
+        <path d="M 60 163 A 9 11 0 0 1 68 164" fill = "none" stroke = "#ffffff"/>
+        
+
+      </g>
+
+      <!-- Tickmarks -->
+      <g id = "tickmarks">
+        <rect x =80 y="40" width = "20" height ="5" stroke="none"></rect>
+        <rect x =80 y="50" width = "10" height ="5" stroke="none"></rect>
+        <rect x =80 y="60" width = "20" height ="5" stroke="none"></rect>
+        <rect x =80 y="70" width = "10" height ="5" stroke="none"></rect>
+        <rect x =80 y="80" width = "20" height ="5" stroke="none"></rect>
+        <rect x =80 y="90" width = "10" height ="5" stroke="none"></rect>
+        <rect x =80 y="100" width = "20" height ="5" stroke="none"></rect>
+        <rect x =80 y="110" width = "10" height ="5" stroke="none"></rect>
+        <rect x =80 y="120" width = "20" height ="5" stroke="none"></rect>
+        <rect x =80 y="130" width = "10" height ="5" stroke="none"></rect>
+        <rect x =80 y="140" width = "20" height ="5" stroke="none"></rect>
+        
+      </g>
+
+      <!-- Temperatures (C,F)-->
+      <g class = "celsiustext">
+        <text id="c1" x="102" y="147" opacity = "1">-18</text>
+        <text id="c2" x="108" y="127" opacity = "1" >6</text>
+        <text id="c3" x="105" y="107"opacity = "1" >30</text>
+        <text id="c4" x="105" y="87" opacity = "1">54</text>
+        <text id="c5" x="105" y="67" opacity = "1">76</text>
+        <text id="c6" x="102" y="47" opacity = "1">100</text>
+      </g>
+
+      <g class  = "farenheightext">
+        <text id="f1" x="108" y="147" opacity = "0">0</text>
+        <text id="f2" x="105" y="127" opacity = "0">42</text>
+        <text id="f3" x="105" y="107" opacity = "0">86</text>
+        <text id="f4" x="102" y="87" opacity = "0">128</text>
+        <text id="f5" x="102" y="67" opacity = "0">170</text>
+        <text id="f6" x="102" y="47" opacity = "0">212</text>
+      </g>
+      
+      <!-- minimum temperature should be just the circle, no column-->
+    </svg> <!-- end SVG-->
+
+
+      <!-- Slider -->
+      <g class = "slider">
+        <input type= "range" min = "1" max = "130" value="1" id="slider">
+      </g>
+
+      <!-- Radio -->
+      <div>
+        <g class = "Radio">
+          <input   type="radio" name="temp" value="Farenheight" id = "f"/> Farenheight
+          <input checked name="temp" type="radio" value="Celsius" id = "c"/> Celsius
+        </g>
+      </div>
+  </div>
+  <script>
+    // celsiusheights = [0,20,40,60,80,100]
+    //  farenheights = [32,64,96,128,160,212]
+   
+    slider.oninput = function(){
+      
+      // updates the slider value
+      let sliders = document.getElementById("slider") 
+        slider.setAttribute("value",this.value) 
+
+      //logs the current value
+      let sliderval = sliders.getAttribute("value") 
+      //console.log(sliderval)
+      
+      // updates the height of the liquid
+     let column = document.getElementById("column")
+     let cap = document.getElementById("cap")
+        cap.setAttribute("cy",170-this.value)
+        column.setAttribute("y", 170-this.value)
+        column.setAttribute("height",this.value)
+
+      // changes color at certain heights
+      let bulb = document.getElementById("bulb")
+      if (this.value<= 35 && bulb.getAttribute("fill")!="#2BA4C1"){
+        bulb.setAttribute("fill","#2BA4C1")
+        column.setAttribute("fill","#2BA4C1")
+        cap.setAttribute("fill","#2BA4C1")
+      }
+      else{
+        if(35<this.value && this.value<=90 && bulb.getAttribute("fill")!="#d67f0d"){
+        bulb.setAttribute("fill","#d67f0d")
+        column.setAttribute("fill","#d67f0d")
+        cap.setAttribute("fill","#d67f0d")
+      }  
+        if(90<this.value && bulb.getAttribute("fill")!="#b32704"){
+        bulb.setAttribute("fill","#b32704")
+        column.setAttribute("fill","#b32704")
+        cap.setAttribute("fill","#b32704")
+      }
+    } 
+      
+    } // end slideroninput  
+    f.oninput = function(){
+          // checks if farenheight radio button is checked and changes opacity of F to 1 (vis) and C to 0 (not vis) if so
+      let farenheight = document.getElementById("f")
+        if(farenheight.checked){
+         
+            c1.setAttribute("opacity","0")
+            console.log(c1)
+            c2.setAttribute("opacity","0")
+            c3.setAttribute("opacity","0")
+            c4.setAttribute("opacity","0")
+            c5.setAttribute("opacity","0")
+            c6.setAttribute("opacity","0")
+
+            f1.setAttribute("opacity","1")
+            f2.setAttribute("opacity","1")
+            f3.setAttribute("opacity","1")
+            f4.setAttribute("opacity","1")
+            f5.setAttribute("opacity","1")
+            f6.setAttribute("opacity","1")
+        }
+    }// end foninput
+
+
+    c.oninput = function(){
+      // does the opp of above
+      let celsius = document.getElementById("c")
+      if(celsius.checked){
+    
+            c1.setAttribute("opacity","1")
+            c2.setAttribute("opacity","1")
+            c3.setAttribute("opacity","1")
+            c4.setAttribute("opacity","1")
+            c5.setAttribute("opacity","1")
+            c6.setAttribute("opacity","1")
+
+            f1.setAttribute("opacity","0")
+            f2.setAttribute("opacity","0")
+            f3.setAttribute("opacity","0")
+            f4.setAttribute("opacity","0")
+            f5.setAttribute("opacity","0")
+            f6.setAttribute("opacity","0")   
+      }  
+    }// end c oninput
+    
+    
+
+
+    
+    
+
+  </script>
+</body>
+
+</html>
